@@ -39,19 +39,19 @@ export const UpdateProfile = () => {
       }
     };
 
+    if (
+      emailRef.current.value !== currentUser.email &&
+      newPasswordRef.current.value !== ""
+    ) {
+      setError("Please, change only one at a time");
+      return;
+    }
+
     if (emailRef.current.value !== currentUser.email) {
       updateEmail();
     }
 
     if (newPasswordRef.current.value !== "") {
-      updatePassword();
-    }
-
-    if (
-      emailRef.current.value !== currentUser.email &&
-      newPasswordRef.current.value !== ""
-    ) {
-      updateEmail();
       updatePassword();
     }
 
