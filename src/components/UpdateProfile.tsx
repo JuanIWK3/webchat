@@ -16,29 +16,6 @@ export const UpdateProfile = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
-    const updateEmail = async () => {
-      try {
-        setError("");
-        setSuccess("");
-        await emailUpdate(emailRef.current.value);
-        setSuccess("Email updated");
-      } catch {
-        setError("Failed to update email");
-      }
-    };
-
-    const updatePassword = async () => {
-      try {
-        setError("");
-        setSuccess("");
-        await passwordUpdate(newPasswordRef.current.value);
-        setSuccess("Password updated");
-      } catch {
-        setError("Failed to update password");
-      }
-    };
-
     if (
       emailRef.current.value !== currentUser.email &&
       newPasswordRef.current.value !== ""
@@ -48,11 +25,25 @@ export const UpdateProfile = () => {
     }
 
     if (emailRef.current.value !== currentUser.email) {
-      updateEmail();
+      try {
+        setError("");
+        setSuccess("");
+        await emailUpdate(emailRef.current.value);
+        setSuccess("Email updated");
+      } catch {
+        setError("Failed to update email");
+      }
     }
 
     if (newPasswordRef.current.value !== "") {
-      updatePassword();
+      try {
+        setError("");
+        setSuccess("");
+        await passwordUpdate(newPasswordRef.current.value);
+        setSuccess("Password updated");
+      } catch {
+        setError("Failed to update password");
+      }
     }
 
     if (
