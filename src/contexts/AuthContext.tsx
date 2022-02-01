@@ -1,10 +1,10 @@
 import {
   createUserWithEmailAndPassword,
+  deleteUser,
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
-  updateCurrentUser,
   updateEmail,
   updatePassword,
   updateProfile,
@@ -51,6 +51,18 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
   };
 
+  const nameUpdate = (name: string) => {
+    if (currentUser !== null) {
+      return updateProfile(currentUser, { displayName: name });
+    }
+  };
+
+  const deleteAccount = () => {
+    if (currentUser !== null) {
+      return deleteUser(currentUser);
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
@@ -68,6 +80,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     resetPassword,
     emailUpdate,
     passwordUpdate,
+    deleteAccount,
+    nameUpdate,
   };
   return (
     <AuthContext.Provider value={value}>

@@ -25,7 +25,15 @@ export const Dashboard = () => {
         <Card.Body>
           <h2 className="text-center mb-4">Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
-          <strong>Email: </strong> {currentUser.email}
+          {currentUser.displayName && (
+            <p>
+              <strong>Name: </strong> {currentUser.displayName}
+            </p>
+          )}
+          <p>
+            <strong>Email: </strong> {currentUser.email}
+          </p>
+
           <Link className="w-100 btn btn-primary" to="/update-profile">
             Update Profile
           </Link>

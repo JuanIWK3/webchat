@@ -1,21 +1,44 @@
 import React, { FormEvent, useRef, useState } from "react";
 import { Alert, Button, Card, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { DeleteAccountModal } from "./Modal/DeleteAccountModal";
 
 export const UpdateProfile = () => {
   const emailRef = useRef<any>(null);
   const passwordRef = useRef<any>(null);
   const newPasswordRef = useRef<any>(null);
+  const nameRef = useRef<any>(null);
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { currentUser, emailUpdate, passwordUpdate } = useAuth();
+  const { currentUser, emailUpdate, passwordUpdate, nameUpdate } = useAuth();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    if (
+      nameRef.current.value === currentUser.displayName &&
+      emailRef.current.value === currentUser.email &&
+      newPasswordRef.current.value === ""
+    ) {
+      setError("There is no change");
+    }
+
+    if (nameRef.current.value !== currentUser.displayName) {
+      try {
+        setError("");
+        setSuccess("");
+        await nameUpdate(nameRef.current.value);
+        setSuccess("Name updated");
+      } catch (error) {
+        console.log(error);
+
+        setError("Error updating name");
+      }
+    }
+
     if (
       emailRef.current.value !== currentUser.email &&
       newPasswordRef.current.value !== ""
@@ -28,11 +51,13 @@ export const UpdateProfile = () => {
       try {
         setError("");
         setSuccess("");
+        setLoading(true);
         await emailUpdate(emailRef.current.value);
         setSuccess("Email updated");
       } catch {
         setError("Failed to update email");
       }
+      setLoading(false);
     }
 
     if (newPasswordRef.current.value !== "") {
@@ -45,13 +70,6 @@ export const UpdateProfile = () => {
         setError("Failed to update password");
       }
     }
-
-    if (
-      emailRef.current.value === currentUser.email &&
-      newPasswordRef.current.value === ""
-    ) {
-      setError("There is no change");
-    }
   };
 
   return (
@@ -62,6 +80,15 @@ export const UpdateProfile = () => {
           {error && <Alert variant="danger">{error}</Alert>}
           {success && <Alert variant="success">{success}</Alert>}
           <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-2" id="name">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                ref={nameRef}
+                defaultValue={currentUser.displayName}
+                required
+              />
+            </Form.Group>
             <Form.Group className="mb-2" id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control
@@ -99,9 +126,8 @@ export const UpdateProfile = () => {
           </Form>
         </Card.Body>
       </Card>
-      <div className="w-100 text-center mt-2">
-        <Button variant="link">Delete account</Button>
-      </div>
+
+      <DeleteAccountModal password={passwordRef} />
     </>
   );
 };
