@@ -33,8 +33,8 @@ export const Signup = () => {
   };
 
   return (
-    <div>
-      <Card>
+    <>
+      <Card className="w-100">
         <Card.Body>
           <h2 className="text-center mb-4">Sign Up</h2>
           {error && <Alert variant="danger">{error}</Alert>}
@@ -75,6 +75,6 @@ export const Signup = () => {
       <div className="w-100 text-center mt-2">
         Already have an account? <Link to="/login">Log In</Link>
       </div>
-    </div>
+    </>
   );
 };

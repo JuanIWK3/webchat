@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Alert, Button, Card } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 export const Dashboard = () => {
@@ -14,7 +14,7 @@ export const Dashboard = () => {
     try {
       await logout();
       navigate("/login");
-    } catch (error) {
+    } catch {
       setError("Failed to log out");
     }
   };
@@ -26,6 +26,9 @@ export const Dashboard = () => {
           <h2 className="text-center mb-4">Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <strong>Email: </strong> {currentUser.email}
+          <Link className="w-100 btn btn-primary" to="/update-profile">
+            Update Profile
+          </Link>
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
@@ -36,6 +39,3 @@ export const Dashboard = () => {
     </>
   );
 };
-function logout() {
-  throw new Error("Function not implemented.");
-}

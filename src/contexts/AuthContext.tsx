@@ -1,8 +1,13 @@
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
+  updateCurrentUser,
+  updateEmail,
+  updatePassword,
+  updateProfile,
   User,
 } from "firebase/auth";
 import React, { createContext, useContext, useEffect, useState } from "react";
@@ -15,7 +20,7 @@ export const useAuth = () => {
 };
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState<User | null>();
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   const signup = (email: string, password: string) => {
@@ -28,6 +33,22 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   const logout = () => {
     return signOut(auth);
+  };
+
+  const resetPassword = (email: string) => {
+    return sendPasswordResetEmail(auth, email);
+  };
+
+  const emailUpdate = (email: string) => {
+    if (currentUser !== null) {
+      return updateEmail(currentUser, email);
+    }
+  };
+
+  const passwordUpdate = (password: string) => {
+    if (currentUser !== null) {
+      return updatePassword(currentUser, password);
+    }
   };
 
   useEffect(() => {
@@ -44,6 +65,9 @@ export const AuthProvider: React.FC = ({ children }) => {
     signup,
     login,
     logout,
+    resetPassword,
+    emailUpdate,
+    passwordUpdate,
   };
   return (
     <AuthContext.Provider value={value}>
