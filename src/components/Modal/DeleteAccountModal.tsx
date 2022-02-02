@@ -2,7 +2,7 @@ import React, { FormEvent, useRef, useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 
-export const DeleteAccountModal = (password?: any) => {
+export const DeleteAccountModal = () => {
   const [show, setShow] = useState(false);
   const { currentUser, deleteAccount, login } = useAuth();
   const [error, setError] = useState("");
@@ -33,7 +33,6 @@ export const DeleteAccountModal = (password?: any) => {
     <div>
       <div className="w-100 text-center mt-2">
         <Button
-          disabled={password.length > 0}
           onClick={() => {
             setShow(true);
           }}

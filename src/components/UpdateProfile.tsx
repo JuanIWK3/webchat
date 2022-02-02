@@ -127,7 +127,7 @@ export const UpdateProfile = () => {
         </Card.Body>
       </Card>
 
-      <DeleteAccountModal password={passwordRef} />
+      <DeleteAccountModal />
     </>
   );
 };
