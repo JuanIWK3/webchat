@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FormEvent, useRef, useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 
 import { useAuth } from "../../contexts/AuthContext";
 
-export function DeleteAccountModal() {
+export const DeleteAccountModal = () => {
   const [show, setShow] = useState(false);
   const { currentUser, deleteAccount, login } = useAuth();
   const [error, setError] = useState("");
@@ -72,4 +73,4 @@ export function DeleteAccountModal() {
       </Modal>
     </div>
   );
-}
+};

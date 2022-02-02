@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FormEvent, useRef, useState } from "react";
 import { Alert, Button, Card, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import { useAuth } from "../contexts/AuthContext";
 
-export function Signup() {
+export const Signup = () => {
   const emailRef = useRef<any>(null);
   const passwordRef = useRef<any>(null);
   const passwordConfirmRef = useRef<any>(null);
@@ -78,4 +79,4 @@ export function Signup() {
       </div>
     </>
   );
-}
+};

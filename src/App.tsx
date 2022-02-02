@@ -1,3 +1,4 @@
+/* eslint-disable func-style */
 import React from "react";
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -11,7 +12,7 @@ import { UpdateProfile } from "./components/UpdateProfile";
 import { AuthProvider } from "./contexts/AuthContext";
 import "./styles/global.scss";
 
-function App() {
+const App = () => {
   return (
     <Container
       className="d-flex align-items-center justify-content-center flex-column"
@@ -33,6 +34,6 @@ function App() {
       </Router>
     </Container>
   );
-}
+};
 
 export default App;

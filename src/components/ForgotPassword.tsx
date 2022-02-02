@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FormEvent, useRef, useState } from "react";
 import { Alert, Button, Card, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import { useAuth } from "../contexts/AuthContext";
 
-export function ForgotPassword() {
+export const ForgotPassword = () => {
   const emailRef = useRef<any>(null);
 
   const [error, setError] = useState("");
@@ -53,4 +54,4 @@ export function ForgotPassword() {
       </Card.Body>
     </Card>
   );
-}
+};

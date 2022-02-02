@@ -23,11 +23,26 @@
     "react",
     "@typescript-eslint",
     "eslint-plugin-import-helpers",
-    "prettier"
+    "prettier",
+    "prefer-arrow"
   ],
   "rules": {
-    "namedComponents": "arrow-function",
-    "unnamedComponents": "arrow-function",
+    "consistent-return": "off",
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+    "prefer-arrow/prefer-arrow-functions": [
+      "warn",
+      {
+        "disallowPrototype": true,
+        "singleReturnOnly": true,
+        "classPropertiesAllowed": false
+      }
+    ],
     "camelcase": "off",
     "import/no-unresolved": "error",
     "@typescript-eslint/naming-convention": [

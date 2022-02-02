@@ -1,10 +1,12 @@
+/* eslint-disable react/function-component-definition */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FormEvent, useRef, useState } from "react";
 import { Alert, Button, Card, Form } from "react-bootstrap";
 
 import { useAuth } from "../contexts/AuthContext";
 import { DeleteAccountModal } from "./Modal/DeleteAccountModal";
 
-export function UpdateProfile() {
+export const UpdateProfile = () => {
   const emailRef = useRef<any>(null);
   const passwordRef = useRef<any>(null);
   const newPasswordRef = useRef<any>(null);
@@ -34,8 +36,6 @@ export function UpdateProfile() {
         await nameUpdate(nameRef.current.value);
         setSuccess("Name updated");
       } catch (error) {
-        console.log(error);
-
         setError("Error updating name");
       }
     }
@@ -131,4 +131,4 @@ export function UpdateProfile() {
       <DeleteAccountModal />
     </>
   );
-}
+};
