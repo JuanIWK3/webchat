@@ -1,6 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import { Dashboard } from "./components/Dashboard";
 import { ForgotPassword } from "./components/ForgotPassword";
 import { Login } from "./components/Login";

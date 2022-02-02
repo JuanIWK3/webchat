@@ -1,9 +1,10 @@
 import React, { FormEvent, useRef, useState } from "react";
 import { Alert, Button, Card, Form } from "react-bootstrap";
+
 import { useAuth } from "../contexts/AuthContext";
 import { DeleteAccountModal } from "./Modal/DeleteAccountModal";
 
-export const UpdateProfile = () => {
+export function UpdateProfile() {
   const emailRef = useRef<any>(null);
   const passwordRef = useRef<any>(null);
   const newPasswordRef = useRef<any>(null);
@@ -130,4 +131,4 @@ export const UpdateProfile = () => {
       <DeleteAccountModal />
     </>
   );
-};
+}
