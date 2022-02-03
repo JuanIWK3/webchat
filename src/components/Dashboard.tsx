@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { db } from "../firebase";
 import { IUserData } from "../types/interfaces";
+import { TiArrowBackOutline } from "react-icons/ti";
 
 export const Dashboard = () => {
   const [error, setError] = useState("");
@@ -53,7 +54,15 @@ export const Dashboard = () => {
       </Link>
       <Card className="w-100">
         <Card.Body>
-          <h2 className="text-center mb-2">Profile</h2>
+          <div className="nav-title">
+            <Link to="/" >
+              <TiArrowBackOutline size={20} />
+            </Link>
+            <h2 className="text-center">Profile</h2>
+            <Button variant="link">
+              <TiArrowBackOutline id="hidden" />
+            </Button>
+          </div>
           {error && <Alert variant="danger">{error}</Alert>}
           {currentUser.photoURL ? (
             <div
