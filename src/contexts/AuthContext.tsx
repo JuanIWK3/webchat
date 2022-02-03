@@ -72,7 +72,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
   };
 
-  const addUser = (email: string, password: string) => {
+  const addUser = (email: string) => {
     return setDoc(doc(db, "users", email), {
       id: email,
       friends: [],
