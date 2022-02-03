@@ -1,8 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import React, { FormEvent, useRef, useState } from "react";
 import { Alert, Button, Card, Form } from "react-bootstrap";
-
 import { useAuth } from "../contexts/AuthContext";
 import { DeleteAccountModal } from "./Modal/DeleteAccountModal";
 
@@ -11,31 +8,15 @@ export const UpdateProfile = () => {
   const passwordRef = useRef<any>(null);
   const newPasswordRef = useRef<any>(null);
   const nameRef = useRef<any>(null);
-  const photoURLRef = useRef<any>(null);
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const {
-    currentUser,
-    emailUpdate,
-    passwordUpdate,
-    nameUpdate,
-    photoURLUpdate,
-    login,
-  } = useAuth();
+  const { currentUser, emailUpdate, passwordUpdate, nameUpdate } = useAuth();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
-    try {
-      setError("");
-      await login(emailRef.current.value, passwordRef.current.value);
-    } catch {
-      setError("Invalid Password");
-      return;
-    }
 
     if (
       nameRef.current.value === currentUser.displayName &&
@@ -45,34 +26,15 @@ export const UpdateProfile = () => {
       setError("There is no change");
     }
 
-    //* Photo Update
-
-    if (
-      photoURLRef.current.value !== currentUser.photoURL &&
-      photoURLRef.current.value !== ""
-    ) {
-      try {
-        setError("");
-        setSuccess("");
-        await photoURLUpdate(photoURLRef.current.value);
-        setSuccess("Photo updated");
-      } catch (error) {
-        setError("Error updating photo");
-      }
-    }
-
-    //* Name Update
-
-    if (
-      nameRef.current.value !== currentUser.displayName &&
-      nameRef.current.value !== ""
-    ) {
+    if (nameRef.current.value !== currentUser.displayName) {
       try {
         setError("");
         setSuccess("");
         await nameUpdate(nameRef.current.value);
         setSuccess("Name updated");
       } catch (error) {
+        console.log(error);
+
         setError("Error updating name");
       }
     }
@@ -84,8 +46,6 @@ export const UpdateProfile = () => {
       setError("Please, change only one at a time");
       return;
     }
-
-    //* Email Update
 
     if (emailRef.current.value !== currentUser.email) {
       try {
@@ -99,8 +59,6 @@ export const UpdateProfile = () => {
       }
       setLoading(false);
     }
-
-    //* Password Update
 
     if (newPasswordRef.current.value !== "") {
       try {
@@ -128,14 +86,7 @@ export const UpdateProfile = () => {
                 type="text"
                 ref={nameRef}
                 defaultValue={currentUser.displayName}
-              />
-            </Form.Group>
-            <Form.Group className="mb-2" id="photoURL">
-              <Form.Label>Photo URL</Form.Label>
-              <Form.Control
-                type="text"
-                ref={photoURLRef}
-                defaultValue={currentUser.photoURL}
+                required
               />
             </Form.Group>
             <Form.Group className="mb-2" id="email">
