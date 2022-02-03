@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { Dashboard } from "./components/Dashboard";
 import { ForgotPassword } from "./components/ForgotPassword";
+import { Home } from "./components/Home";
 import { Login } from "./components/Login";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { Signup } from "./components/Signup";
@@ -21,7 +22,8 @@ const App = () => {
       <Router>
         <AuthProvider>
           <Routes>
-            <Route path="/" element={<PrivateRoute element={Dashboard} />} />
+            <Route path="/profile" element={<PrivateRoute element={Dashboard} />} />
+            <Route path="/" element={<PrivateRoute element={Home} />} />
             <Route
               path="/update-profile"
               element={<PrivateRoute element={UpdateProfile} />}

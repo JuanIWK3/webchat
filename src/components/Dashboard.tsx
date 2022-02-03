@@ -48,6 +48,9 @@ export const Dashboard = () => {
 
   return (
     <>
+      <Link to="/">
+        <Button variant="link">Home</Button>
+      </Link>
       <Card className="w-100">
         <Card.Body>
           <h2 className="text-center mb-2">Profile</h2>
@@ -61,8 +64,16 @@ export const Dashboard = () => {
                 marginBottom: "8px",
               }}
             >
-              <div id="image-border">
-                <img src={currentUser.photoURL} alt="" />
+              <div className="profile-image" id="image-border">
+                <div
+                  style={{
+                    width: "8rem",
+                    height: "8rem",
+                    borderRadius: "50%",
+                    backgroundImage: `url(${currentUser.photoURL})`,
+                    backgroundPosition: "center",
+                  }}
+                />
               </div>
             </div>
           ) : (
@@ -76,7 +87,7 @@ export const Dashboard = () => {
             >
               <div id="image">
                 <img
-                  style={{ height: "8rem" }}
+                  style={{ height: "8rem", borderRadius: "50%" }}
                   src="https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png"
                   alt=""
                 />

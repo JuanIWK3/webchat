@@ -16,56 +16,71 @@ body {
 
 #image-border {
   background: linear-gradient(-90deg, #33b7e2, #5e62b0, #dc307c);
-  border-radius: 50%;
   padding: 0.3rem;
-  -webkit-animation: spin 4s linear infinite;
-  -moz-animation: spin 4s linear infinite;
-  animation: spin 4s linear infinite;
+}
 
-  @-moz-keyframes spin {
-    100% {
-      -moz-transform: rotate(360deg);
-    }
+.profile-image {
+  background: linear-gradient(-90deg, #33b7e2, #5e62b0, #dc307c);
+  border-radius: 50%;
+  padding: 0.1rem;
+  position: relative;
+
+  div {
+    background-size: contain;
+    background-repeat: no-repeat;
   }
-  @-webkit-keyframes spin {
-    100% {
-      -webkit-transform: rotate(360deg);
-    }
-  }
-  @keyframes spin {
-    100% {
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg);
-    }
+}
+
+.image-hover {
+  &::before {
+    content: attr(data-hover);
+    visibility: hidden;
+    opacity: 0;
+    width: max-content;
+    background-color: rgba(0, 0, 0, 0.116);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 5px;
+    transition: opacity 1s ease-in-out;
+
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 
-  img {
-    position: relative;
-    height: 8rem;
-    width: 8rem;
-    border-radius: 50%;
+  &:hover::before {
+    opacity: 1;
+    visibility: visible;
+  }
+}
 
-    -webkit-animation: spin2 4s linear infinite;
-    -moz-animation: spin2 4s linear infinite;
-    animation: spin2 4s linear infinite;
-    
-    @-moz-keyframes spin2 {
-      100% {
-        -moz-transform: rotate(-360deg);
-      }
-    }
-    @-webkit-keyframes spin2 {
-      100% {
-        -webkit-transform: rotate(-360deg);
-      }
-    }
-    @keyframes spin2 {
-      100% {
-        -webkit-transform: rotate(-360deg);
-        transform: rotate(-360deg);
+#btn-outline {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #fff;
+  margin: 4px;
+  text-decoration: none;
+  overflow: hidden;
+
+  div {
+    display: flex;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+
+      .h6{
+        margin-bottom: 5px;
+        padding: 0;
       }
     }
   }
 }
 
-
+#button {
+  padding: 5px;
+}
