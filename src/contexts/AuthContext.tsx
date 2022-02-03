@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   createUserWithEmailAndPassword,
   deleteUser,
@@ -10,8 +11,10 @@ import {
   updateProfile,
   User,
 } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "../firebase";
+
+import { auth, db } from "../firebase";
 
 const AuthContext = createContext({});
 
@@ -57,9 +60,31 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
   };
 
+  const photoURLUpdate = (photoURL: string) => {
+    if (currentUser !== null) {
+      return updateProfile(currentUser, { photoURL });
+    }
+  };
+
   const deleteAccount = () => {
     if (currentUser !== null) {
       return deleteUser(currentUser);
+    }
+  };
+
+  const addUser = (email: string, password: string) => {
+    return setDoc(doc(db, "users", email), {
+      id: email,
+      friends: [],
+    });
+  };
+
+  const getUserData = async (email: string) => {
+    const docRef = doc(db, "users", email);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return docSnap.data();
     }
   };
 
@@ -82,6 +107,9 @@ export const AuthProvider: React.FC = ({ children }) => {
     passwordUpdate,
     deleteAccount,
     nameUpdate,
+    addUser,
+    getUserData,
+    photoURLUpdate,
   };
   return (
     <AuthContext.Provider value={value}>

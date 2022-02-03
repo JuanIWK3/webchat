@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FormEvent, useRef, useState } from "react";
 import { Alert, Button, Card, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+
 import { useAuth } from "../contexts/AuthContext";
 
 export const Login = () => {
@@ -69,7 +71,7 @@ export const Login = () => {
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        Don't have an account? <Link to="/signup">Register now</Link>
+        Don &apos t have an account? <Link to="/signup">Register now</Link>
       </div>
     </>
   );
