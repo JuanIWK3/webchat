@@ -1,5 +1,6 @@
 import React, { FormEvent, useRef, useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
+
 import { useAuth } from "../../contexts/AuthContext";
 
 export const DeleteAccountModal = () => {
@@ -61,8 +62,8 @@ export const DeleteAccountModal = () => {
               ref={passwordRef}
               minLength={6}
               type="password"
-            ></Form.Control>
-            <p></p>
+            />
+            <p />
             <Button type="submit" onClick={pwBeforeDelete} variant="danger">
               Delete
             </Button>

@@ -1,6 +1,8 @@
+
 import React, { FormEvent, useRef, useState } from "react";
 import { Alert, Button, Card, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
+
 import { useAuth } from "../contexts/AuthContext";
 
 export const Signup = () => {
@@ -12,7 +14,7 @@ export const Signup = () => {
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { signup } = useAuth();
+  const { signup, addUser } = useAuth();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -25,6 +27,7 @@ export const Signup = () => {
       setError("");
       setLoading(true);
       await signup(emailRef.current.value, passwordConfirmRef.current.value);
+      await addUser(emailRef.current.value, passwordConfirmRef.current.value);
       setSuccess("Account Created");
     } catch (error) {
       setError("Failed to create an account");
