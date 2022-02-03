@@ -13,6 +13,9 @@
 
 # misc
 .DS_Store
+.editorconfig
+.eslintignore
+.eslintrc.json
 .env
 .env.local
 .env.development.local
