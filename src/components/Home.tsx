@@ -179,24 +179,23 @@ export const Home = () => {
                     {messages.map((message) => {
                       return (
                         <div key={message.id}>
-                          <div>
-                            <div
-                              className="message"
-                              style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                                padding: "8px 16px 8px 16px",
-                              }}
-                            >
-                              <div>
-                                <p className="text-dark">
-                                  {message.user.displayName}
-                                </p>
-                                <p>{message.text}</p>
-                              </div>
-                              <p>{message.time}</p>
+                          <div
+                            className="message"
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              padding: "8px 16px 8px 16px",
+                              backgroundColor: "#fefefe40"
+                            }}
+                          >
+                            <div>
+                              <p className="text-dark">
+                                {message.user.displayName}
+                              </p>
+                              <p>{message.text}</p>
                             </div>
+                            <p>{message.time}</p>
                           </div>
                         </div>
                       );
