@@ -14,11 +14,18 @@ export const Home = () => {
 
   const sendMessage = (e: FormEvent) => {
     e.preventDefault();
-    const today = new Date();
+    const date = new Date();
 
     const array = new Uint32Array(1);
 
-    const time = today.getHours() + ":" + today.getMinutes();
+    let hours = date.getHours();
+    let minutes: number | string = date.getMinutes();
+    let ampm = hours >= 12 ? "pm" : "am";
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    const time = hours + ":" + minutes + " " + ampm;
+
     const messageTemp: IMessage = {
       id: crypto.getRandomValues(array)[0],
       user: currentUser,
@@ -175,10 +182,15 @@ export const Home = () => {
                           <div>
                             <div
                               className="message"
-                              style={{display: "flex", justifyContent: "space-between", alignItems: "center",padding: "8px 16px 8px 16px" }}
+                              style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                padding: "8px 16px 8px 16px",
+                              }}
                             >
-                              <div >
-                                <p className="text-info">
+                              <div>
+                                <p className="text-dark">
                                   {message.user.displayName}
                                 </p>
                                 <p>{message.text}</p>
