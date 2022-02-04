@@ -49,19 +49,13 @@ export const Dashboard = () => {
 
   return (
     <>
-      <Link to="/">
-        <Button variant="link">Home</Button>
-      </Link>
-      <Card className="w-100">
+      <Card className="w-100" style={{ maxWidth: "400px" }}>
         <Card.Body>
           <div className="nav-title">
-            <Link to="/" >
+            <Link to="/">
               <TiArrowBackOutline size={20} />
             </Link>
             <h2 className="text-center">Profile</h2>
-            <Button variant="link">
-              <TiArrowBackOutline id="hidden" />
-            </Button>
           </div>
           {error && <Alert variant="danger">{error}</Alert>}
           {currentUser.photoURL ? (
@@ -109,10 +103,7 @@ export const Dashboard = () => {
           <p>
             <strong>Email: </strong> {userData.id}
           </p>
-          <p>
-            <strong>Friends: </strong> {userData.friends}
-          </p>
-
+          
           <Link className="w-100 btn btn-primary" to="/update-profile">
             Update Profile
           </Link>

@@ -57,42 +57,16 @@ body {
   }
 }
 
-#btn-outline {
-  display: flex;
-  justify-content: space-between;
-  border: 1px solid #fff;
-  margin: 4px;
-  text-decoration: none;
-  overflow: hidden;
-
-  div {
-    display: flex;
-
-    div {
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-
-      .h6 {
-        margin-bottom: 5px;
-        padding: 0;
-      }
-    }
-  }
-}
-
-#button {
-  padding: 5px;
-}
-
 .nav-title {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 8px;
 
   a {
     padding: 0 8px 8px 0;
+    position: absolute;
+    left: 30px;
   }
 
   h2 {

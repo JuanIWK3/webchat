@@ -37,7 +37,7 @@ export const Signup = () => {
 
   return (
     <>
-      <Card className="w-100">
+      <Card style={{minWidth: "400px"}}>
         <Card.Body>
           <h2 className="text-center mb-4">Sign Up</h2>
           {error && <Alert variant="danger">{error}</Alert>}

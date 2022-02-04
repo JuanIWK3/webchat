@@ -38,7 +38,7 @@ export const Login = () => {
 
   return (
     <>
-      <Card className="w-100">
+      <Card className="w-100" style={{maxWidth: "400px"}}>
         <Card.Body>
           <h2 className="text-center mb-4">Log In</h2>
           {error && <Alert variant="danger">{error}</Alert>}

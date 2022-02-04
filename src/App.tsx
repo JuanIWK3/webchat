@@ -1,6 +1,5 @@
 /* eslint-disable func-style */
 import React from "react";
-import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { Dashboard } from "./components/Dashboard";
@@ -12,17 +11,28 @@ import { Signup } from "./components/Signup";
 import { UpdateProfile } from "./components/UpdateProfile";
 import { AuthProvider } from "./contexts/AuthContext";
 import "./styles/global.scss";
+import "./styles/home.scss";
 
 const App = () => {
   return (
-    <Container
-      className="d-flex align-items-center justify-content-center flex-column"
-      style={{ minHeight: "100vh", width: "100vw", maxWidth: "400px" }}
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        justifyContent: "center",
+        minHeight: "100vh",
+        width: "100vw",
+        padding: "0 16px 0 16px",
+      }}
     >
       <Router>
         <AuthProvider>
           <Routes>
-            <Route path="/profile" element={<PrivateRoute element={Dashboard} />} />
+            <Route
+              path="/profile"
+              element={<PrivateRoute element={Dashboard} />}
+            />
             <Route path="/" element={<PrivateRoute element={Home} />} />
             <Route
               path="/update-profile"
@@ -34,7 +44,7 @@ const App = () => {
           </Routes>
         </AuthProvider>
       </Router>
-    </Container>
+    </div>
   );
 };
 
