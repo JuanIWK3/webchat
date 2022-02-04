@@ -15,17 +15,20 @@ export const Home = () => {
   const sendMessage = (e: FormEvent) => {
     e.preventDefault();
     const today = new Date();
-    
-    const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+    const array = new Uint32Array(1);
+
+    const time = today.getHours() + ":" + today.getMinutes();
     const messageTemp: IMessage = {
+      id: crypto.getRandomValues(array)[0],
       user: currentUser,
       text: messageRef.current?.value,
-      time: time
-    }
-    
-    setMessages((prevState) => [...prevState, messageTemp])
-    
-    return;
+      time: time,
+    };
+
+    console.log(messageTemp);
+
+    setMessages((prevState) => [...prevState, messageTemp]);
   };
 
   return (
@@ -165,10 +168,31 @@ export const Home = () => {
                     justifyContent: "space-between",
                   }}
                 >
-                  <div></div>
+                  <div>
+                    {messages.map((message) => {
+                      return (
+                        <div key={message.id}>
+                          <div>
+                            <div
+                              className="message"
+                              style={{display: "flex", justifyContent: "space-between", alignItems: "center",padding: "8px 16px 8px 16px" }}
+                            >
+                              <div >
+                                <p className="text-info">
+                                  {message.user.displayName}
+                                </p>
+                                <p>{message.text}</p>
+                              </div>
+                              <p>{message.time}</p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                   <Form onSubmit={sendMessage}>
                     <InputGroup>
-                      <FormControl ref={messageRef}></FormControl>
+                      <FormControl type="text" ref={messageRef}></FormControl>
                       <Button type="submit" variant="outline-secondary">
                         <BiSend />
                       </Button>

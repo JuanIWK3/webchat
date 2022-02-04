@@ -1,3 +1,5 @@
+import { User } from "firebase/auth";
+
 export interface IUserData {
   id: string;
   friends: IUserData[];
@@ -6,7 +8,8 @@ export interface IUserData {
 }
 
 export interface IMessage {
-  user: IUserData;
+  id: number;
+  user: User;
   text: string | undefined;
   time: string;  
 }
