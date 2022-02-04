@@ -7,59 +7,80 @@ import { HiUserGroup } from "react-icons/hi";
 
 export const Home = () => {
   const { currentUser } = useAuth();
+
+  const showProfilePic = () => {
+    if (currentUser.photoURL) {
+      return (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "8px",
+          }}
+        >
+          <Link className="btn" id="btn" to="/profile">
+            <div className="profile-image image-hover" data-hover="Profile">
+              <div
+                style={{
+                  width: "4rem",
+                  height: "4rem",
+                  borderRadius: "50%",
+                  backgroundImage: `url(${currentUser.photoURL})`,
+                  backgroundPosition: "center",
+                }}
+              />
+            </div>
+          </Link>
+          <div>
+            <Button id="button" variant="link">
+              <HiUserGroup size={40} />
+            </Button>
+            <Button id="button" variant="link">
+              <TiContacts size={40} />
+            </Button>
+          </div>
+        </div>
+      )
+    } else {
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: "8px",
+        }}
+      >
+        <Link className="btn" id="btn" to="/profile">
+          <div className="profile-image image-hover" data-hover="Profile">
+            <div
+              style={{
+                width: "4rem",
+                height: "4rem",
+                borderRadius: "50%",
+                backgroundImage: `url(https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png)`,
+                backgroundPosition: "center",
+              }}
+            />
+          </div>
+        </Link>
+        <div>
+          <Button id="button" variant="link">
+            <HiUserGroup size={40} />
+          </Button>
+          <Button id="button" variant="link">
+            <TiContacts size={40} />
+          </Button>
+        </div>
+      </div>
+    }
+  }
+
   return (
     <>
       <Card className="w-100" style={{ height: "90vh" }}>
         <Card.Body style={{ display: "flex", flexDirection: "column" }}>
-          {currentUser.photoURL ? (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginBottom: "8px",
-              }}
-            >
-              <Link className="btn" id="btn" to="/profile">
-                <div className="profile-image image-hover" data-hover="Profile">
-                  <div
-                    style={{
-                      width: "4rem",
-                      height: "4rem",
-                      borderRadius: "50%",
-                      backgroundImage: `url(${currentUser.photoURL})`,
-                      backgroundPosition: "center",
-                    }}
-                  />
-                </div>
-              </Link>
-              <div>
-                <Button id="button" variant="link">
-                  <HiUserGroup size={40} />
-                </Button>
-                <Button id="button" variant="link">
-                  <TiContacts size={40} />
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginBottom: "8px",
-              }}
-            >
-              <div id="image">
-                <img
-                  style={{ height: "8rem", borderRadius: "50%" }}
-                  src="https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png"
-                  alt=""
-                />
-              </div>
-            </div>
-          )}
+          {showProfilePic}
           <Button variant="link" id="btn-outline">
             Geral
           </Button>

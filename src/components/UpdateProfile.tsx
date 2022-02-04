@@ -1,15 +1,15 @@
-import React, { FormEvent, useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { Alert, Button, Card, Form } from "react-bootstrap";
 
 import { useAuth } from "../contexts/AuthContext";
 import { DeleteAccountModal } from "./Modal/DeleteAccountModal";
 
 export const UpdateProfile = () => {
-  const emailRef = useRef<any>(null);
-  const passwordRef = useRef<any>(null);
-  const newPasswordRef = useRef<any>(null);
-  const nameRef = useRef<any>(null);
-  const photoURLRef = useRef<any>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const newPasswordRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const photoURLRef = useRef<HTMLInputElement>(null);
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -29,16 +29,16 @@ export const UpdateProfile = () => {
 
     try {
       setError("");
-      await login(emailRef.current.value, passwordRef.current.value);
+      await login(emailRef.current?.value, passwordRef.current?.value);
     } catch {
       setError("Invalid Password");
       return;
     }
 
     if (
-      nameRef.current.value === currentUser.displayName &&
-      emailRef.current.value === currentUser.email &&
-      newPasswordRef.current.value === ""
+      nameRef.current?.value === currentUser.displayName &&
+      emailRef.current?.value === currentUser.email &&
+      newPasswordRef.current?.value === ""
     ) {
       setError("There is no change");
     }
@@ -46,13 +46,13 @@ export const UpdateProfile = () => {
     //* Photo Update
 
     if (
-      photoURLRef.current.value !== currentUser.photoURL &&
-      photoURLRef.current.value !== ""
+      photoURLRef.current?.value !== currentUser.photoURL &&
+      photoURLRef.current?.value !== ""
     ) {
       try {
         setError("");
         setSuccess("");
-        await photoURLUpdate(photoURLRef.current.value);
+        await photoURLUpdate(photoURLRef.current?.value);
         setSuccess("Photo updated");
       } catch (error) {
         setError("Error updating photo");
@@ -62,13 +62,13 @@ export const UpdateProfile = () => {
     //* Name Update
 
     if (
-      nameRef.current.value !== currentUser.displayName &&
-      nameRef.current.value !== ""
+      nameRef.current?.value !== currentUser.displayName &&
+      nameRef.current?.value !== ""
     ) {
       try {
         setError("");
         setSuccess("");
-        await nameUpdate(nameRef.current.value);
+        await nameUpdate(nameRef.current?.value);
         setSuccess("Name updated");
       } catch (error) {
         setError("Error updating name");
@@ -76,8 +76,8 @@ export const UpdateProfile = () => {
     }
 
     if (
-      emailRef.current.value !== currentUser.email &&
-      newPasswordRef.current.value !== ""
+      emailRef.current?.value !== currentUser.email &&
+      newPasswordRef.current?.value !== ""
     ) {
       setError("Please, change only one at a time");
       return;
@@ -85,12 +85,12 @@ export const UpdateProfile = () => {
 
     //* Email Update
 
-    if (emailRef.current.value !== currentUser.email) {
+    if (emailRef.current?.value !== currentUser.email) {
       try {
         setError("");
         setSuccess("");
         setLoading(true);
-        await emailUpdate(emailRef.current.value);
+        await emailUpdate(emailRef.current?.value);
         setSuccess("Email updated");
       } catch {
         setError("Failed to update email");
@@ -100,11 +100,11 @@ export const UpdateProfile = () => {
 
     //* Password Update
 
-    if (newPasswordRef.current.value !== "") {
+    if (newPasswordRef.current?.value !== "") {
       try {
         setError("");
         setSuccess("");
-        await passwordUpdate(newPasswordRef.current.value);
+        await passwordUpdate(newPasswordRef.current?.value);
         setSuccess("Password updated");
       } catch {
         setError("Failed to update password");
