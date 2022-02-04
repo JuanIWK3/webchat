@@ -37,7 +37,7 @@ export const Home = () => {
     };
 
     setMessages([...messages, messageTemp]);
-    formRef.current?.reset()
+    formRef.current?.reset();
   };
 
   return (
@@ -177,10 +177,7 @@ export const Home = () => {
                     justifyContent: "space-between",
                   }}
                 >
-                  <div>
-                    <div>
-                      {selectedContact?.displayName}
-                    </div>
+                  <div style={{maxHeight: "70vh", overflow: "auto"}}>
                     {messages.map((message) => {
                       return (
                         <div key={message.id}>
@@ -191,7 +188,7 @@ export const Home = () => {
                               justifyContent: "space-between",
                               alignItems: "center",
                               padding: "8px 16px 8px 16px",
-                              backgroundColor: "#fefefe40"
+                              backgroundColor: "#fefefe40",
                             }}
                           >
                             <div>
