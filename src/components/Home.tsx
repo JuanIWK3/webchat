@@ -6,11 +6,14 @@ import { TiContacts } from "react-icons/ti";
 import { HiUserGroup } from "react-icons/hi";
 import { BiSend } from "react-icons/bi";
 import { IMessage } from "../types/interfaces";
+import { User } from "firebase/auth";
 
 export const Home = () => {
   const { currentUser } = useAuth();
+  const [selectedContact, setSelectedContact] = useState<User>();
   const [messages, setMessages] = useState<IMessage[]>([]);
   const messageRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const sendMessage = (e: FormEvent) => {
     e.preventDefault();
@@ -33,9 +36,8 @@ export const Home = () => {
       time: time,
     };
 
-    console.log(messageTemp);
-
-    setMessages((prevState) => [...prevState, messageTemp]);
+    setMessages([...messages, messageTemp]);
+    formRef.current?.reset()
   };
 
   return (
@@ -176,6 +178,9 @@ export const Home = () => {
                   }}
                 >
                   <div>
+                    <div>
+                      {selectedContact?.displayName}
+                    </div>
                     {messages.map((message) => {
                       return (
                         <div key={message.id}>
@@ -201,7 +206,7 @@ export const Home = () => {
                       );
                     })}
                   </div>
-                  <Form onSubmit={sendMessage}>
+                  <Form ref={formRef} onSubmit={sendMessage}>
                     <InputGroup>
                       <FormControl type="text" ref={messageRef}></FormControl>
                       <Button type="submit" variant="outline-secondary">
