@@ -34,7 +34,7 @@ main {
 
   aside {
     width: 100%;
-    max-width: 400px;
+
     white-space: nowrap;
     overflow: hidden;
 
@@ -46,6 +46,10 @@ main {
     @media only screen and (min-width: 768px) {
       width: max-content;
       overflow: visible;
+    }
+
+    button {
+      width: calc(100% - 8px);
     }
 
     #aside-body {
@@ -114,7 +118,7 @@ main {
       color: gray;
     }
 
-    @media only screen and (max-width: 500px) {
+    @media only screen and (max-width: 512px) {
       display: none;
     }
 
