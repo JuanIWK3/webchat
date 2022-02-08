@@ -34,11 +34,13 @@ main {
 
   aside {
     width: 100%;
+    max-width: 400px;
     white-space: nowrap;
     overflow: hidden;
 
     @media only screen and (min-width: 512px) {
       width: 142px;
+      overflow: visible;
     }
 
     @media only screen and (min-width: 768px) {
