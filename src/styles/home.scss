@@ -86,12 +86,18 @@ main {
       display: none;
     }
 
+    .message-wrapper {
+      display: flex;
+      width: 100%;
+    }
+
     .message {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 8px 16px 8px 16px;
-
+      background-color: #09ff002a;
+      border: 1px solid rgba(0, 255, 8, 0.172);
       border-radius: 0.5rem;
       margin-bottom: 8px;
 
@@ -106,9 +112,9 @@ main {
     }
 
     #other-users-message {
-      color: white;
       background-color: #fefefe40;
-      border: 1px solid rgba(255, 255, 255, 0);
+      color: white;
+      border: 1px solid rgba(0, 255, 8, 0);
 
       #name {
         color: rgb(229, 255, 0);

@@ -239,7 +239,7 @@ export const Home = () => {
                   <div style={{ maxHeight: "70vh", overflow: "auto" }}>
                     {messages.map((message) => {
                       return (
-                        <div key={message.id}>
+                        <div className="message-wrapper" key={message.id}>
                           <div
                             className="message"
                             id={
