@@ -51,7 +51,7 @@ export const Home = () => {
     const recentMessagesQuery = query(
       collection(db, "messages"),
       orderBy("timestamp", "desc"),
-      limit(5)
+      limit(100)
     );
 
     const unsubscribe = onSnapshot(recentMessagesQuery, (snapshot) => {
