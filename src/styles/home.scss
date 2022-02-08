@@ -33,20 +33,45 @@ main {
   height: 100%;
 
   aside {
-    width: 30vh;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
 
-    #card-aside {
-      #aside-body {
-        padding: 2px;
+    @media only screen and (min-width: 512px) {
+      width: 142px;
+    }
+
+    @media only screen and (min-width: 768px) {
+      width: max-content;
+      overflow: visible;
+    }
+
+    #aside-body {
+      padding: 2px;
+
+      #contact-image {
+        margin-right: 8px;
       }
-    }
 
-    @media only screen and (max-width: 768px) {
-      width: 100%;
-    }
+      @media only screen and (min-width: 512px) {
+        #contact-image {
+          margin-right: 0px;
+        }
 
-    button {
-      width: 100%;
+        .contact-data {
+          display: none;
+        }
+      }
+
+      @media only screen and (min-width: 768px) {
+        #contact-image {
+          margin-right: 8px;
+        }
+
+        .contact-data {
+          display: flex;
+        }
+      }
     }
   }
 
@@ -55,7 +80,7 @@ main {
     height: 100%;
     margin-left: 16px;
 
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 500px) {
       display: none;
     }
 

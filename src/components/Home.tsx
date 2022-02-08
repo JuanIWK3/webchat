@@ -5,8 +5,6 @@ import { useAuth } from "../contexts/AuthContext";
 import { TiContacts } from "react-icons/ti";
 import { HiUserGroup } from "react-icons/hi";
 import { BiSend } from "react-icons/bi";
-import { IMessage } from "../types/interfaces";
-import { User } from "firebase/auth";
 import {
   addDoc,
   collection,
@@ -16,10 +14,11 @@ import {
   query,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import { IMessage } from "../types/interfaces";
 
 export const Home = () => {
   const { currentUser } = useAuth();
-  const [selectedContact, setSelectedContact] = useState<User>();
+  const [selectedContact, setSelectedContact] = useState("");
   const [messageExists, setMessageExists] = useState(false);
   const [messages, setMessages] = useState<IMessage[]>([]);
   const messageRef = useRef<HTMLInputElement>(null);
@@ -165,42 +164,57 @@ export const Home = () => {
             <aside>
               <Card id="card-aside" className="h-100">
                 <Card.Body id="aside-body">
-                  <Button variant="link" id="btn-outline">
-                    Geral
-                  </Button>
-                  <Button variant="link" id="btn-outline">
+                  <Button
+                    id="btn-outline"
+                    className="contact"
+                    onClick={() => {
+                      setSelectedContact("Chat Geral");
+                    }}
+                    variant="link"
+                  >
                     <div>
-                      <img
+                      <div
+                        id="contact-image"
                         style={{
+                          width: "50px",
                           height: "50px",
-                          width: "auto",
+                          backgroundImage:
+                            "url(https://st4.depositphotos.com/22836852/41055/v/380/depositphotos_410556062-stock-illustration-react-icon-in-outline-style.jpg?forcejpeg=true)",
+                          backgroundPosition: "center",
+                          backgroundSize: "cover",
                           borderRadius: "50%",
-                          marginRight: "8px",
                         }}
-                        src="https://i.pinimg.com/280x280_RS/74/69/6c/74696ce6cd3eb1379fd6548e58d73ddd.jpg"
-                        alt=""
-                      />
-                      <div>
+                      ></div>
+                      <div className="contact-data">
                         <div className="h6">
-                          <strong>Logan</strong>
+                          <strong>General</strong>
                         </div>
-                        <div>O menacing</div>
+                        <div>Last Message</div>
                       </div>
                     </div>
                   </Button>
-                  <Button variant="link" id="btn-outline">
+                  <Button
+                    className="contact"
+                    onClick={() => {
+                      setSelectedContact("Marcos");
+                    }}
+                    variant="link"
+                    id="btn-outline"
+                  >
                     <div>
-                      <img
+                      <div
+                        id="contact-image"
                         style={{
-                          height: "50px",
                           width: "50px",
+                          height: "50px",
+                          backgroundImage:
+                            "url(https://pbs.twimg.com/media/D8u_cGmWsAA6w7c?format=jpg&name=large)",
+                          backgroundPosition: "center",
+                          backgroundSize: "cover",
                           borderRadius: "50%",
-                          marginRight: "8px",
                         }}
-                        src="https://pbs.twimg.com/media/D8u_cGmWsAA6w7c?format=jpg&name=large"
-                        alt=""
-                      />
-                      <div>
+                      ></div>
+                      <div className="contact-data">
                         <div className="h6">
                           <strong>Marcos</strong>
                         </div>
@@ -213,6 +227,7 @@ export const Home = () => {
             </aside>
             <div className="chat">
               <Card className="h-100">
+                <Card.Header>{selectedContact}</Card.Header>
                 <Card.Body
                   style={{
                     height: "100%",
