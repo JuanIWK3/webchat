@@ -43,7 +43,7 @@ export const Home = () => {
     for (let i = 0; i < messagesArray.length; i++) {
       console.log(messagesArray[i]);
 
-      setMessages([...messages, messagesArray[i]]);
+      setMessages((prevState) => [...prevState, messagesArray[i]]);
     }
   };
 
