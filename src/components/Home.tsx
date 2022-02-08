@@ -239,7 +239,15 @@ export const Home = () => {
                   <div style={{ maxHeight: "70vh", overflow: "auto" }}>
                     {messages.map((message) => {
                       return (
-                        <div className="message-wrapper" key={message.id}>
+                        <div
+                          id={
+                            message.name === currentUser.displayName
+                              ? ""
+                              : "other-users-message-wrapper"
+                          }
+                          className="message-wrapper"
+                          key={message.id}
+                        >
                           <div
                             className="message"
                             id={
@@ -255,7 +263,9 @@ export const Home = () => {
                                 {message.text}
                               </p>
                             </div>
-                            <p>{message.timestamp}</p>
+                            <p style={{ marginLeft: "8px" }}>
+                              {message.timestamp}
+                            </p>
                           </div>
                         </div>
                       );
