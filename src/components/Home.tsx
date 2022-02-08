@@ -236,7 +236,7 @@ export const Home = () => {
                     justifyContent: "space-between",
                   }}
                 >
-                  <div style={{ maxHeight: "70vh", overflow: "auto" }}>
+                  <div id="chat-wrapper">
                     {messages.map((message) => {
                       return (
                         <div
@@ -275,7 +275,11 @@ export const Home = () => {
                   </div>
                   <Form ref={formRef} onSubmit={sendMessage}>
                     <InputGroup>
-                      <FormControl type="text" ref={messageRef}></FormControl>
+                      <FormControl
+                        id="message-input"
+                        type="text"
+                        ref={messageRef}
+                      ></FormControl>
 
                       {!messageExists && (
                         <Button type="submit" variant="outline-secondary">

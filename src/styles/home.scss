@@ -82,6 +82,38 @@ main {
     height: 100%;
     margin-left: 16px;
 
+    .card-body {
+      #chat-wrapper {
+        max-height: 74vh;
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+          width: 5px;
+        }
+
+        /* Track */
+        &::-webkit-scrollbar-track {
+          -webkit-border-radius: 10px;
+          border-radius: 10px;
+        }
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+          -webkit-border-radius: 10px;
+          border-radius: 10px;
+          background: rgba(39, 39, 39, 0.8);
+        }
+        &::-webkit-scrollbar-thumb:window-inactive {
+          background: rgba(0, 0, 0, 0.4);
+        }
+      }
+    }
+
+    #message-input {
+      background-color: rgb(29, 29, 29);
+      color: gray;
+    }
+
     @media only screen and (max-width: 500px) {
       display: none;
     }
@@ -101,7 +133,7 @@ main {
       justify-content: space-between;
       align-items: center;
       padding: 8px 16px 8px 16px;
-      background-color: #09ff002a;
+      background-color: #09ff0000;
       border: 1px solid rgba(0, 255, 8, 0.172);
       border-radius: 0.5rem;
       margin-bottom: 8px;
@@ -117,7 +149,7 @@ main {
     }
 
     #other-users-message {
-      background-color: #fefefe40;
+      background-color: #fefefe19;
       color: white;
       border: 1px solid rgba(0, 255, 8, 0);
 
