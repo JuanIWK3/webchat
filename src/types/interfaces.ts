@@ -8,8 +8,9 @@ export interface IUserData {
 }
 
 export interface IMessage {
-  id: number;
-  user: User;
-  text: string | undefined;
-  time: string;  
+  id: string,
+  timestamp: string,
+  name: string,
+  text: string,
+  profilePicUrl: string,
 }

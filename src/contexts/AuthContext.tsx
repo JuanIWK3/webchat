@@ -11,7 +11,14 @@ import {
   updateProfile,
   User,
 } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getFirestore,
+  setDoc,
+} from "firebase/firestore";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 import { auth, db } from "../firebase";
@@ -91,6 +98,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
+
       setLoading(false);
     });
 
@@ -111,6 +119,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     getUserData,
     photoURLUpdate,
   };
+
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}

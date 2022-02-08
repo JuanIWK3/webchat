@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { Button, Card, Form, FormControl, InputGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
@@ -7,20 +7,26 @@ import { HiUserGroup } from "react-icons/hi";
 import { BiSend } from "react-icons/bi";
 import { IMessage } from "../types/interfaces";
 import { User } from "firebase/auth";
+import {
+  addDoc,
+  collection,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
+import { db } from "../firebase";
 
 export const Home = () => {
   const { currentUser } = useAuth();
   const [selectedContact, setSelectedContact] = useState<User>();
+  const [messageExists, setMessageExists] = useState(false);
   const [messages, setMessages] = useState<IMessage[]>([]);
   const messageRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
-  const sendMessage = (e: FormEvent) => {
-    e.preventDefault();
+  const getCurrentTime = () => {
     const date = new Date();
-
-    const array = new Uint32Array(1);
-
     let hours = date.getHours();
     let minutes: number | string = date.getMinutes();
     let ampm = hours >= 12 ? "pm" : "am";
@@ -28,16 +34,62 @@ export const Home = () => {
     hours = hours ? hours : 12; // the hour '0' should be '12'
     minutes = minutes < 10 ? "0" + minutes : minutes;
     const time = hours + ":" + minutes + " " + ampm;
+    return time;
+  };
 
-    const messageTemp: IMessage = {
-      id: crypto.getRandomValues(array)[0],
-      user: currentUser,
-      text: messageRef.current?.value,
-      time: time,
-    };
+  const deleteMessage = (id: string) => {};
 
-    setMessages([...messages, messageTemp]);
+  const updateMessages = (messagesArray: IMessage[]) => {
+    for (let i = 0; i < messagesArray.length; i++) {
+      console.log(messagesArray[i]);
+
+      setMessages([...messages, messagesArray[i]]);
+    }
+  };
+
+  useEffect(() => {
+    const recentMessagesQuery = query(
+      collection(db, "messages"),
+      orderBy("timestamp", "desc"),
+      limit(5)
+    );
+
+    const unsubscribe = onSnapshot(recentMessagesQuery, (snapshot) => {
+      const messagesArray: IMessage[] = [];
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "removed") {
+          deleteMessage(change.doc.id);
+        } else {
+          const message: IMessage = change.doc.data() as IMessage;
+          message.id = change.doc.id;
+
+          messagesArray.push(message);
+        }
+      });
+      updateMessages(messagesArray);
+    });
+
+    return unsubscribe;
+  }, []);
+
+  const sendMessage = async (e: FormEvent) => {
+    e.preventDefault();
+
+    if (messageRef.current?.value.length === 0) return;
+
+    try {
+      await addDoc(collection(db, "messages"), {
+        name: currentUser?.displayName,
+        text: messageRef.current?.value,
+        profilePicUrl: currentUser?.photoURL,
+        timestamp: getCurrentTime(),
+      });
+    } catch (error) {
+      console.error("Error writing new message to Firebase Database");
+    }
+
     formRef.current?.reset();
+    setMessageExists(false);
   };
 
   return (
@@ -72,14 +124,6 @@ export const Home = () => {
                     />
                   </div>
                 </Link>
-                <div>
-                  <Button id="button" variant="link">
-                    <HiUserGroup size={40} />
-                  </Button>
-                  <Button id="button" variant="link">
-                    <TiContacts size={40} />
-                  </Button>
-                </div>
               </div>
             ) : (
               <div
@@ -177,7 +221,7 @@ export const Home = () => {
                     justifyContent: "space-between",
                   }}
                 >
-                  <div style={{maxHeight: "70vh", overflow: "auto"}}>
+                  <div style={{ maxHeight: "70vh", overflow: "auto" }}>
                     {messages.map((message) => {
                       return (
                         <div key={message.id}>
@@ -192,12 +236,12 @@ export const Home = () => {
                             }}
                           >
                             <div>
-                              <p className="text-dark">
-                                {message.user.displayName}
+                              <p className="text-dark">{message.name}</p>
+                              <p style={{ wordWrap: "break-word" }}>
+                                {message.text}
                               </p>
-                              <p>{message.text}</p>
                             </div>
-                            <p>{message.time}</p>
+                            <p>{message.timestamp}</p>
                           </div>
                         </div>
                       );
@@ -206,9 +250,12 @@ export const Home = () => {
                   <Form ref={formRef} onSubmit={sendMessage}>
                     <InputGroup>
                       <FormControl type="text" ref={messageRef}></FormControl>
-                      <Button type="submit" variant="outline-secondary">
-                        <BiSend />
-                      </Button>
+
+                      {!messageExists && (
+                        <Button type="submit" variant="outline-secondary">
+                          <BiSend />
+                        </Button>
+                      )}
                     </InputGroup>
                   </Form>
                 </Card.Body>

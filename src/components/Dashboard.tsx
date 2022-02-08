@@ -26,7 +26,6 @@ export const Dashboard = () => {
 
     if (docSnap.exists()) {
       setUserData(docSnap.data() as IUserData);
-      console.log(docSnap.data());
     } else {
       setError("Could not find user data");
     }
@@ -103,7 +102,7 @@ export const Dashboard = () => {
           <p>
             <strong>Email: </strong> {userData.id}
           </p>
-          
+
           <Link className="w-100 btn btn-primary" to="/update-profile">
             Update Profile
           </Link>
