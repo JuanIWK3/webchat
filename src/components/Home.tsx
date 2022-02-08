@@ -227,16 +227,16 @@ export const Home = () => {
                         <div key={message.id}>
                           <div
                             className="message"
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                              padding: "8px 16px 8px 16px",
-                              backgroundColor: "#fefefe40",
-                            }}
+                            id={
+                              message.name === currentUser.displayName
+                                ? ""
+                                : "other-users-message"
+                            }
                           >
                             <div>
-                              <p className="text-dark">{message.name}</p>
+                              {message.name !== currentUser.displayName && (
+                                <p id="name">{message.name}</p>
+                              )}
                               <p style={{ wordWrap: "break-word" }}>
                                 {message.text}
                               </p>
