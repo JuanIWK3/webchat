@@ -249,9 +249,8 @@ export const Home = () => {
                             }
                           >
                             <div>
-                              {message.name !== currentUser.displayName && (
-                                <p id="name">{message.name}</p>
-                              )}
+                              <p id="name">{message.name}</p>
+
                               <p style={{ wordWrap: "break-word" }}>
                                 {message.text}
                               </p>
