@@ -1,4 +1,10 @@
-import React, { FormEvent, useEffect, useRef, useState } from "react";
+import React, {
+  FormEvent,
+  useEffect,
+  useRef,
+  useState,
+  useContext,
+} from "react";
 import { Button, Card, Form, FormControl, InputGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
@@ -16,10 +22,10 @@ import {
 import { db } from "../firebase";
 import { IMessage } from "../types/interfaces";
 
+import { ThemeContext } from "styled-components";
+
 export const Home = () => {
   const { currentUser } = useAuth();
-  const [selectedContact, setSelectedContact] = useState("");
-  const [messageExists, setMessageExists] = useState(false);
   const [messages, setMessages] = useState<IMessage[]>([]);
   const messageRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -40,8 +46,6 @@ export const Home = () => {
 
   const updateMessages = (messagesArray: IMessage[]) => {
     for (let i = 0; i < messagesArray.length; i++) {
-      console.log(messagesArray[i]);
-
       setMessages((prevState) => [...prevState, messagesArray[i]]);
     }
   };
@@ -88,7 +92,6 @@ export const Home = () => {
     }
 
     formRef.current?.reset();
-    setMessageExists(false);
   };
 
   return (
@@ -161,73 +164,9 @@ export const Home = () => {
             )}
           </nav>
           <main>
-            <aside>
-              <Card id="card-aside" className="h-100">
-                <Card.Body id="aside-body">
-                  <Button
-                    id="btn-outline"
-                    className="contact"
-                    onClick={() => {
-                      setSelectedContact("Chat Geral");
-                    }}
-                    variant="link"
-                  >
-                    <div>
-                      <div
-                        id="contact-image"
-                        style={{
-                          width: "50px",
-                          height: "50px",
-                          backgroundImage:
-                            "url(https://st4.depositphotos.com/22836852/41055/v/380/depositphotos_410556062-stock-illustration-react-icon-in-outline-style.jpg?forcejpeg=true)",
-                          backgroundPosition: "center",
-                          backgroundSize: "cover",
-                          borderRadius: "50%",
-                        }}
-                      ></div>
-                      <div className="contact-data">
-                        <div className="h6">
-                          <strong>General</strong>
-                        </div>
-                        <div>Last Message</div>
-                      </div>
-                    </div>
-                  </Button>
-                  <Button
-                    className="contact"
-                    onClick={() => {
-                      setSelectedContact("Marcos");
-                    }}
-                    variant="link"
-                    id="btn-outline"
-                  >
-                    <div>
-                      <div
-                        id="contact-image"
-                        style={{
-                          width: "50px",
-                          height: "50px",
-                          backgroundImage:
-                            "url(https://pbs.twimg.com/media/D8u_cGmWsAA6w7c?format=jpg&name=large)",
-                          backgroundPosition: "center",
-                          backgroundSize: "cover",
-                          borderRadius: "50%",
-                        }}
-                      ></div>
-                      <div className="contact-data">
-                        <div className="h6">
-                          <strong>Marcos</strong>
-                        </div>
-                        <div>Cole jao</div>
-                      </div>
-                    </div>
-                  </Button>
-                </Card.Body>
-              </Card>
-            </aside>
             <div className="chat">
               <Card className="h-100">
-                <Card.Header>{selectedContact}</Card.Header>
+                <Card.Header>Chat</Card.Header>
                 <Card.Body
                   style={{
                     height: "100%",
@@ -256,6 +195,20 @@ export const Home = () => {
                                 : "other-users-message"
                             }
                           >
+                            {message.name !== currentUser.displayName && (
+                              <div
+                                style={{
+                                  width: "50px",
+                                  height: "50px",
+                                  backgroundImage: `url(${currentUser.photoURL})`,
+                                  backgroundPosition: "center",
+                                  backgroundSize: "cover",
+                                  borderRadius: "50%",
+                                  marginRight: "16px",
+                                }}
+                                className="message-pic"
+                              ></div>
+                            )}
                             <div>
                               {message.name !== currentUser.displayName && (
                                 <p id="name">{message.name}</p>
@@ -265,7 +218,7 @@ export const Home = () => {
                                 {message.text}
                               </p>
                             </div>
-                            <p style={{ marginLeft: "8px" }}>
+                            <p style={{ marginLeft: "16px", color: "gray" }}>
                               {message.timestamp}
                             </p>
                           </div>
@@ -280,12 +233,9 @@ export const Home = () => {
                         type="text"
                         ref={messageRef}
                       ></FormControl>
-
-                      {!messageExists && (
-                        <Button type="submit" variant="outline-secondary">
-                          <BiSend />
-                        </Button>
-                      )}
+                      <Button type="submit" variant="outline-secondary">
+                        <BiSend />
+                      </Button>
                     </InputGroup>
                   </Form>
                 </Card.Body>

@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components";
+
+export default createGlobalStyle`
 * {
   margin: 0;
   padding: 0;
@@ -12,23 +15,6 @@ body {
 #image {
   border: 2px solid rgb(106, 106, 106);
   border-radius: 50%;
-}
-
-#image-border {
-  background: linear-gradient(-90deg, #33b7e2, #5e62b0, #dc307c);
-  padding: 0.3rem;
-}
-
-.profile-image {
-  background: linear-gradient(-90deg, #33b7e2, #5e62b0, #dc307c);
-  border-radius: 50%;
-  padding: 0.1rem;
-  position: relative;
-
-  div {
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
 }
 
 .image-hover {
@@ -56,25 +42,5 @@ body {
     visibility: visible;
   }
 }
+`
 
-.nav-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 8px;
-
-  a {
-    padding: 0 8px 8px 0;
-    position: absolute;
-    left: 30px;
-  }
-
-  h2 {
-    margin: 0;
-    padding: 0;
-  }
-
-  #hidden {
-    opacity: 0;
-  }
-}
