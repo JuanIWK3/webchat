@@ -1,10 +1,10 @@
 # Web Chat
 
-# Tools
+## Tools
 
 React | Bootstrap | Firebase 
 
-# To do
+## To do
 
 - [x] Firebase
 - [x] Routes
