@@ -8,8 +8,6 @@ React | Bootstrap | Firebase
 
 - [x] Firebase
 - [x] Routes
-- [x] Account (signup, login, logout)
+- [x] Auth
 - [x] Avatar
-- [ ] Friends
-- [ ] Chat Geral
-- [ ] Chat Privado
+- [x] Chat
