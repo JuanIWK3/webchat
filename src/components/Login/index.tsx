@@ -1,9 +1,9 @@
-
 import React, { FormEvent, useRef, useState } from "react";
 import { Alert, Button, Card, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
+import { Container } from "./styles";
 
 export const Login = () => {
   const emailRef = useRef<any>(null);
@@ -37,8 +37,8 @@ export const Login = () => {
   };
 
   return (
-    <>
-      <Card className="w-100" style={{maxWidth: "400px"}}>
+    <Container>
+      <div className="w-100" style={{ maxWidth: "400px" }}>
         <Card.Body>
           <h2 className="text-center mb-4">Log In</h2>
           {error && <Alert variant="danger">{error}</Alert>}
@@ -69,10 +69,10 @@ export const Login = () => {
             <Link to="/forgot-password">Forgot password</Link>
           </div>
         </Card.Body>
-      </Card>
+      </div>
       <div className="w-100 text-center mt-2">
         Don &apos t have an account? <Link to="/signup">Register now</Link>
       </div>
-    </>
+    </Container>
   );
 };

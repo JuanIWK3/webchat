@@ -1,13 +1,7 @@
-import React, {
-  FormEvent,
-  useEffect,
-  useRef,
-  useState,
-  useContext,
-} from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { Button, Card, Form, FormControl, InputGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { TiContacts } from "react-icons/ti";
 import { HiUserGroup } from "react-icons/hi";
 import { BiSend } from "react-icons/bi";
@@ -19,10 +13,11 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
-import { db } from "../firebase";
-import { IMessage } from "../types/interfaces";
+import { db } from "../../firebase";
+import { IMessage } from "../../types/interfaces";
 
-import { ThemeContext } from "styled-components";
+import { Container } from "./styles";
+import { Avatar } from "../Avatar";
 
 export const Home = () => {
   const { currentUser } = useAuth();
@@ -95,77 +90,17 @@ export const Home = () => {
   };
 
   return (
-    <>
+    <Container>
       <div className="w-100" style={{ height: "90vh" }}>
         <div
           style={{ display: "flex", flexDirection: "column", height: "100%" }}
         >
           <nav>
-            {currentUser.photoURL ? (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  marginBottom: "8px",
-                }}
-              >
-                <Link className="btn" id="btn" to="/profile">
-                  <div
-                    className="profile-image image-hover"
-                    data-hover="Profile"
-                  >
-                    <div
-                      style={{
-                        width: "4rem",
-                        height: "4rem",
-                        borderRadius: "50%",
-                        backgroundImage: `url(${currentUser.photoURL})`,
-                        backgroundPosition: "center",
-                      }}
-                    />
-                  </div>
-                </Link>
-              </div>
-            ) : (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  marginBottom: "8px",
-                }}
-              >
-                <Link className="btn" id="btn" to="/profile">
-                  <div
-                    className="profile-image image-hover"
-                    data-hover="Profile"
-                  >
-                    <div
-                      style={{
-                        width: "4rem",
-                        height: "4rem",
-                        borderRadius: "50%",
-                        backgroundImage: `url("https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png")`,
-                        backgroundPosition: "center",
-                      }}
-                    />
-                  </div>
-                </Link>
-                <div>
-                  <Button id="button" variant="link">
-                    <HiUserGroup size={40} />
-                  </Button>
-                  <Button id="button" variant="link">
-                    <TiContacts size={40} />
-                  </Button>
-                </div>
-              </div>
-            )}
+            <Avatar />
           </nav>
           <main>
             <div className="chat">
-              <Card className="h-100">
+              <div className="h-100">
                 <Card.Header>Chat</Card.Header>
                 <Card.Body
                   style={{
@@ -232,6 +167,8 @@ export const Home = () => {
                         id="message-input"
                         type="text"
                         ref={messageRef}
+                        placeholder="Enter message"
+                        autoComplete="off"
                       ></FormControl>
                       <Button type="submit" variant="outline-secondary">
                         <BiSend />
@@ -239,11 +176,11 @@ export const Home = () => {
                     </InputGroup>
                   </Form>
                 </Card.Body>
-              </Card>
+              </div>
             </div>
           </main>
         </div>
       </div>
-    </>
+    </Container>
   );
 };

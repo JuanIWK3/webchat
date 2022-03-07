@@ -2,7 +2,8 @@ import React, { FormEvent, useRef, useState } from "react";
 import { Alert, Button, Card, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
+import { Container } from "./styles";
 
 export const Signup = () => {
   const emailRef = useRef<any>(null);
@@ -36,8 +37,8 @@ export const Signup = () => {
   };
 
   return (
-    <>
-      <Card style={{ minWidth: "400px" }}>
+    <Container>
+      <div style={{ minWidth: "400px" }}>
         <Card.Body>
           <h2 className="text-center mb-4">Sign Up</h2>
           {error && <Alert variant="danger">{error}</Alert>}
@@ -74,10 +75,10 @@ export const Signup = () => {
             </Button>
           </Form>
         </Card.Body>
-      </Card>
+      </div>
       <div className="w-100 text-center mt-2">
         Already have an account? <Link to="/login">Log In</Link>
       </div>
-    </>
+    </Container>
   );
 };

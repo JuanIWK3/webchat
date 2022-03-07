@@ -38,6 +38,7 @@ export const DeleteAccountModal = () => {
             setShow(true);
           }}
           variant="link"
+          style={{ color: "red" }}
         >
           Delete account
         </Button>

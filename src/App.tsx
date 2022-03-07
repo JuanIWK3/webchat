@@ -3,14 +3,13 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Dashboard from "./components/Dashboard";
-import { ForgotPassword } from "./components/ForgotPassword";
-import { Home } from "./components/Home";
+import { ForgotPassword } from "./components/ForgotPassword/ForgotPassword";
+import { Home } from "./components/Home/Home";
 import { Login } from "./components/Login";
 import { PrivateRoute } from "./components/PrivateRoute";
-import { Signup } from "./components/Signup";
+import { Signup } from "./components/SignUp";
 import { UpdateProfile } from "./components/UpdateProfile";
 import { AuthProvider } from "./contexts/AuthContext";
-import "./styles/home.scss";
 
 import GlobalStyle from "./styles/global";
 import usePersistedState from "./utils/usePersistedState";

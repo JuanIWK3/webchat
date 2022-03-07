@@ -8,7 +8,7 @@ import { TiArrowBackOutline } from "react-icons/ti";
 import Switch from "react-switch";
 import { ThemeContext } from "styled-components";
 import { shade } from "polished";
-import { Container } from "./style";
+import { Container } from "./styles";
 import { IUserData } from "../../types/interfaces";
 import { db } from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";

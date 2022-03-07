@@ -2,8 +2,9 @@ import React, { FormEvent, useRef, useState } from "react";
 import { Alert, Button, Card, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-import { useAuth } from "../contexts/AuthContext";
-import { DeleteAccountModal } from "./Modal/DeleteAccountModal";
+import { useAuth } from "../../contexts/AuthContext";
+import { DeleteAccountModal } from "../Modal";
+import { Container } from "./styles";
 
 export const UpdateProfile = () => {
   const emailRef = useRef<any>(null);
@@ -120,68 +121,66 @@ export const UpdateProfile = () => {
   };
 
   return (
-    <>
-      <Card className="w-100" style={{ maxWidth: "400px" }}>
-        <Card.Body>
-          <h2 className="text-center mb-4">Update Profile</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          {success && <Alert variant="success">{success}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-2" id="name">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                ref={nameRef}
-                defaultValue={currentUser.displayName}
-              />
-            </Form.Group>
-            <Form.Group className="mb-2" id="photoURL">
-              <Form.Label>Photo URL</Form.Label>
-              <Form.Control
-                type="text"
-                ref={photoURLRef}
-                defaultValue={currentUser.photoURL}
-              />
-            </Form.Group>
-            <Form.Group className="mb-2" id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                ref={emailRef}
-                defaultValue={currentUser.email}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-2" id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                minLength={6}
-                type="password"
-                ref={passwordRef}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-2" id="new-password">
-              <Form.Label>New Password</Form.Label>
-              <Form.Control
-                minLength={6}
-                type="password"
-                ref={newPasswordRef}
-                placeholder="Leave blank to keep the same"
-              />
-            </Form.Group>
-            <Button
-              disabled={loading}
-              className="w-100 text-center mt-2"
-              type="submit"
-            >
-              Update
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
+    <Container>
+      <div style={{ maxWidth: "400px", width: "90vw" }}>
+        <h2 className="text-center mb-4">Update Profile</h2>
+        {error && <Alert variant="danger">{error}</Alert>}
+        {success && <Alert variant="success">{success}</Alert>}
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-2" id="name">
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              type="text"
+              ref={nameRef}
+              defaultValue={currentUser.displayName}
+            />
+          </Form.Group>
+          <Form.Group className="mb-2" id="photoURL">
+            <Form.Label>Photo URL</Form.Label>
+            <Form.Control
+              type="text"
+              ref={photoURLRef}
+              defaultValue={currentUser.photoURL}
+            />
+          </Form.Group>
+          <Form.Group className="mb-2" id="email">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              ref={emailRef}
+              defaultValue={currentUser.email}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-2" id="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              minLength={6}
+              type="password"
+              ref={passwordRef}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-2" id="new-password">
+            <Form.Label>New Password</Form.Label>
+            <Form.Control
+              minLength={6}
+              type="password"
+              ref={newPasswordRef}
+              placeholder="Leave blank to keep the same"
+            />
+          </Form.Group>
+          <Button
+            disabled={loading}
+            className="w-100 text-center mt-2"
+            type="submit"
+          >
+            Update
+          </Button>
+        </Form>
+      </div>
 
       <DeleteAccountModal />
-    </>
+    </Container>
   );
 };
