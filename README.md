@@ -1,15 +1,13 @@
 # Web Chat
 
-# Tools
+## Tools
 
 React | Bootstrap | Firebase 
 
-# To do
+## To do
 
 - [x] Firebase
 - [x] Routes
-- [x] Account (signup, login, logout)
+- [x] Auth
 - [x] Avatar
-- [ ] Friends
-- [ ] Chat Geral
-- [ ] Chat Privado
+- [x] Chat
